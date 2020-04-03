@@ -3,6 +3,7 @@ import express from 'express'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { ChunkExtractor } from '@loadable/server'
+import { PrerenderedControler } from 'react-prerendered-component';
 
 const app = express()
 
@@ -43,7 +44,7 @@ app.get('*', (req, res) => {
   const { default: App } = nodeExtractor.requireEntrypoint()
 
   const webExtractor = new ChunkExtractor({ statsFile: webStats })
-  const jsx = webExtractor.collectChunks(<App />)
+  const jsx = webExtractor.collectChunks(<PrerenderedControler><App /></PrerenderedControler>)
 
   const html = renderToString(jsx)
 

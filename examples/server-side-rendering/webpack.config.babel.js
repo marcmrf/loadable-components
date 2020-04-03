@@ -10,7 +10,8 @@ const development =
 
 const getConfig = target => ({
   name: target,
-  mode: development ? 'development' : 'production',
+  mode: 'development',
+  devtool: 'inline-cheap-source-map',
   target,
   entry: `./src/client/main-${target}.js`,
   module: {
@@ -33,14 +34,21 @@ const getConfig = target => ({
           },
           'css-loader',
         ],
-      },
+	  },
+	  ...(target === 'web' ? [{
+			test: require.resolve('react'),
+			use: [{
+				loader: 'expose-loader',
+				options: 'React'
+			},]
+		}] : []),
     ],
   },
   externals:
     target === 'node' ? ['@loadable/component', nodeExternals()] : undefined,
   output: {
     path: path.join(DIST_PATH, target),
-    filename: production ? '[name]-bundle-[chunkhash:8].js' : '[name].js',
+    filename: '[name].js',
     publicPath: `/dist/${target}/`,
     libraryTarget: target === 'node' ? 'commonjs2' : undefined,
   },

@@ -69,12 +69,17 @@ function createLoadable({ resolve = identity, render, onLoad }) {
 
           // We run load function, we assume that it won't fail and that it
           // triggers a synchronous loading of the module
-          ctor.requireAsync(props).catch(() => {})
+          if (ctor.type === 'CHUNK') {
+            ctor.requireAsync(props).catch(() => {})
+          }
 
           // So we can require now the module synchronously
           this.loadSync()
 
-          props.__chunkExtractor.addChunk(ctor.chunkName(props))
+          if (ctor.type === 'CHUNK') {
+            props.__chunkExtractor.addChunk(ctor.chunkName(props))
+          }
+
           return
         }
 
