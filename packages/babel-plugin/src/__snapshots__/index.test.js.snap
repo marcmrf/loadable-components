@@ -619,21 +619,18 @@ exports[`plugin native import should use require in node environments 1`] = `
   },
 
   requireSync(props) {
-    const isNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
     const id = this.resolve(props);
 
-    if (isNode) {
-      const module = __non_webpack_require__(id);
+    const module = __non_webpack_require__(id);
 
-      if (module.__esModule) {
-        return module;
-      }
-
-      return {
-        __esModule: true,
-        default: module
-      };
+    if (module.__esModule) {
+      return module;
     }
+
+    return {
+      __esModule: true,
+      default: module
+    };
   },
 
   resolve() {
@@ -673,21 +670,8 @@ exports[`plugin native import should work with + concatenation 1`] = `
   },
 
   requireSync(props) {
-    const isNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
     const id = this.resolve(props);
-
-    if (isNode) {
-      const module = __non_webpack_require__(id);
-
-      if (module.__esModule) {
-        return module;
-      }
-
-      return {
-        __esModule: true,
-        default: module
-      };
-    }
+    throw new Error('esm module ' + id + ' cannot be loaded synchronously');
   },
 
   resolve() {
@@ -790,21 +774,8 @@ exports[`plugin native import should work with template literal 1`] = `
   },
 
   requireSync(props) {
-    const isNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
     const id = this.resolve(props);
-
-    if (isNode) {
-      const module = __non_webpack_require__(id);
-
-      if (module.__esModule) {
-        return module;
-      }
-
-      return {
-        __esModule: true,
-        default: module
-      };
-    }
+    throw new Error('esm module ' + id + ' cannot be loaded synchronously');
   },
 
   resolve() {

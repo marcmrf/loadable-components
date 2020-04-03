@@ -25,27 +25,27 @@ export function requireSyncProperty(api) {
 }
 
 
-export function requireSyncPropertyEsm(api) {
+export function requireSyncPropertyEsm(api, target) {
   const { template } = api
-  // TODO: use target
-  const implementation = template.ast(`
-      const isNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
-      const id = this.resolve(props)
+  const nodeImplementation = template.ast(`
+    const id = this.resolve(props)
 
-      if (isNode) {
-          const module = __non_webpack_require__(id)
+    const module = __non_webpack_require__(id)
 
-          if (module.__esModule) {
-              return module
-          }
+    if (module.__esModule) {
+      return module
+    }
 
-          return { __esModule: true, default: module }
-      }
+     return { __esModule: true, default: module }
+  `)
 
-      // throw error or invariant
+  const browserImplementation = template.ast(`
+    const id = this.resolve(props)
+
+    throw new Error('esm module ' + id + ' cannot be loaded synchronously');
   `)
 
   return () => {
-    return buildProperty(api, implementation)
+    return buildProperty(api, target === 'node' ? nodeImplementation : browserImplementation)
   };
 }
