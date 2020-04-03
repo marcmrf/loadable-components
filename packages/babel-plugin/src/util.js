@@ -9,13 +9,13 @@ export function getImportArg(callPath) {
 }
 
 export function hasWebpackIgnore(importArg) {
-	if (!importArg.has('leadingComments')) return null
+  if (!importArg.has('leadingComments')) return null
 
-	return !!importArg
-		.get('leadingComments')
-		.find(comment => {
-			return comment.node.value.match(WEBPACK_IGNORE_REGEXP)
-		})
+  return !!importArg
+    .get('leadingComments')
+    .find(comment => {
+      return comment.node.value.match(WEBPACK_IGNORE_REGEXP)
+    })
 }
 
 
