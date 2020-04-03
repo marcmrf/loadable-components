@@ -1,8 +1,8 @@
 import {
-	getImportArg,
-	getRawChunkNameFromCommments,
-	getChunkNameComment,
- } from '../util'
+  getImportArg,
+  getRawChunkNameFromCommments,
+  getChunkNameComment,
+} from '../util'
 
 const JS_PATH_REGEXP = /^[./]+|(\.js$)/g
 const MATCH_LEFT_HYPHENS_REPLACE_REGEX = /^-/g
@@ -131,7 +131,7 @@ export function chunkNameProperty({ types: t }) {
   }
 
   return ({ callPath, funcPath }) => {
-	const chunkName = replaceChunkName(callPath)
+    const chunkName = replaceChunkName(callPath)
 
     return t.objectMethod(
       'method',
