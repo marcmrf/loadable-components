@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define, react/no-multi-comp, no-underscore-dangle */
 import React from 'react'
+import { PrerenderedComponent } from 'react-prerendered-component'
 import { invariant } from './util'
 import Context from './Context'
 
@@ -221,9 +222,18 @@ function createLoadable({ resolve = identity, render, onLoad }) {
     }
 
     const EnhancedInnerLoadable = withChunkExtractor(InnerLoadable)
-    const Loadable = React.forwardRef((props, ref) => (
-      <EnhancedInnerLoadable forwardedRef={ref} {...props} />
-    ))
+    const Loadable = React.forwardRef((props, ref) => {
+      const EnhancedInnerLoadableWithRefsForwarded = <EnhancedInnerLoadable forwardedRef={ref} {...props} />
+
+
+      return ctor.type === 'CHUNK' ?
+        EnhancedInnerLoadableWithRefsForwarded :
+        (
+          <PrerenderedComponent live={Loadable.load()}>
+            {EnhancedInnerLoadableWithRefsForwarded}
+          </PrerenderedComponent>
+        )
+    })
 
     // In future, preload could use `<link rel="preload">`
     Loadable.preload = props => {
