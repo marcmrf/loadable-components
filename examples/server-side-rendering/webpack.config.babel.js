@@ -10,7 +10,7 @@ const development =
 
 const getConfig = target => ({
   name: target,
-  mode: 'development',
+  mode: development ? 'development' : 'production',
   devtool: 'inline-cheap-source-map',
   target,
   entry: `./src/client/main-${target}.js`,
@@ -48,7 +48,7 @@ const getConfig = target => ({
     target === 'node' ? ['@loadable/component', nodeExternals()] : undefined,
   output: {
     path: path.join(DIST_PATH, target),
-    filename: '[name].js',
+    filename: production ? '[name]-bundle-[chunkhash:8].js' : '[name].js',
     publicPath: `/dist/${target}/`,
     libraryTarget: target === 'node' ? 'commonjs2' : undefined,
   },
