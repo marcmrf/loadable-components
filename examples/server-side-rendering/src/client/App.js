@@ -3,8 +3,6 @@ import React from 'react'
 import loadable from '@loadable/component'
 import './main.css'
 
-import { PrerenderedComponent } from 'react-prerendered-component';
-
 const A = loadable(() => import('./letters/A'))
 const Native = loadable(() => import(/* webpackIgnore: true */ './native.js'))
 const B = loadable(() => import('./letters/B'))
@@ -33,9 +31,7 @@ const Moment = loadable.lib(() => import('moment'))
 
 const App = () => (
   <div>
-  <PrerenderedComponent live={Native.load()}>
 	  <Native></Native>
-  </PrerenderedComponent>
     <A />
     <br />
     <B />
