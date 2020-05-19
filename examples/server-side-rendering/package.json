@@ -8,7 +8,7 @@
 		"start": "NODE_ENV=production node lib/server/main.js",
 		"rollup:cjs": "rollup -c rollup.config.cjs.js",
 		"rollup:esm": "rollup -c rollup.config.esm.js",
-		"rollup": "npm run rollup:cjs && npm run rollup:esm"
+		"rollup": "yarn rollup:cjs && yarn rollup:esm"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.4.4",
