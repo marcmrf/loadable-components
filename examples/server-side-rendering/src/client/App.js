@@ -31,7 +31,7 @@ const Moment = loadable.lib(() => import('moment'))
 
 const App = () => (
   <div>
-	  <Native></Native>
+    <Native />
     <A />
     <br />
     <B />
