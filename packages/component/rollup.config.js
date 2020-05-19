@@ -66,7 +66,6 @@ export default [
     external: Object.keys(globals),
     plugins: [
       babel(getBabelOptions({ useESModules: true })),
-      // TODO: Open pr to react-prerendered-component
       nodeResolve({
         mainFields: ['main'],
       }),
