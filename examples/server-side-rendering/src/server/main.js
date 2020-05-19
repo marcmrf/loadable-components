@@ -43,7 +43,7 @@ app.get('*', (req, res) => {
   const { default: App } = nodeExtractor.requireEntrypoint()
 
   const webExtractor = new ChunkExtractor({ statsFile: webStats })
-  const jsx = webExtractor.collectChunks(<App/>)
+  const jsx = webExtractor.collectChunks(<App />)
 
   const html = renderToString(jsx)
 
