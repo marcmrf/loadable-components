@@ -5,9 +5,9 @@ export default () => {
 
 	return (
 		<div>
-			<button onClick={() => console.log('yeaaaaah')}>press me</button>
+			<button onClick={() => console.log('click')}>press me</button>
 			<div onClick={() => setCounter(counter + 1)}>
-				wololoooooo {counter}
+				click me too! {counter}
 			</div>
 		</div>
 	);
